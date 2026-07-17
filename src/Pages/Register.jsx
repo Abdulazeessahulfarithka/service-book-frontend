@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import API from "../Services/api";
 import axios from "axios";
+import API from "../Services/api";
 
 function Register() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function Register() {
       } else if (
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
       ) {
-        errors.email = "Invalid email address";
+        errors.email = "Invalid email";
       }
 
       if (!values.password) {
@@ -43,19 +43,25 @@ function Register() {
       return errors;
     },
 
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        const register = await axios.post(`${API}/api/user/register`, values);
+        const { data } = await axios.post(
+          `${API}api/user/register`,
+          values
+        );
 
-        if (register.data.success) {
-          toast.success(register.data.message);
+        if (data.success) {
+          toast.success(data.message);
+          resetForm();
           navigate("/login");
         } else {
-          toast.error(register.data.message);
+          toast.error(data.message);
         }
       } catch (error) {
-        console.log(error);
-        toast.error("Registration failed");
+        console.error(error);
+        toast.error(
+          error.response?.data?.message || "Registration failed"
+        );
       }
     },
   });
@@ -74,94 +80,89 @@ function Register() {
               </h2>
 
               <form onSubmit={formik.handleSubmit}>
-                <div className="row">
-                  {/* Name */}
-                  <div className="col-md-6 mb-3">
-                    <label className="form-label">Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      className="form-control"
-                      placeholder="Full Name"
-                      value={formik.values.name}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.name && formik.errors.name && (
-                      <small className="text-danger">
-                        {formik.errors.name}
-                      </small>
-                    )}
-                  </div>
-
-                  {/* Email */}
-                  <div className="col-md-6 mb-3">
-                    <label className="form-label">Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      className="form-control"
-                      placeholder="Email"
-                      value={formik.values.email}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.email && formik.errors.email && (
-                      <small className="text-danger">
-                        {formik.errors.email}
-                      </small>
-                    )}
-                  </div>
-
-                  {/* Password */}
-                  <div className="col-md-6 mb-3">
-                    <label className="form-label">Password</label>
-                    <input
-                      type="password"
-                      name="password"
-                      className="form-control"
-                      placeholder="Password"
-                      value={formik.values.password}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.password && formik.errors.password && (
-                      <small className="text-danger">
-                        {formik.errors.password}
-                      </small>
-                    )}
-                  </div>
-
-                  {/* Address */}
-                  <div className="col-12 mb-3">
-                    <label className="form-label">Address</label>
-                    <input
-                      type="text"
-                      name="address"
-                      className="form-control"
-                      placeholder="House No, Street, Area"
-                      value={formik.values.address}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.address && formik.errors.address && (
-                      <small className="text-danger">
-                        {formik.errors.address}
-                      </small>
-                    )}
-                  </div>
+                <div className="mb-3">
+                  <label className="form-label">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder="Enter Name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.name && formik.errors.name && (
+                    <small className="text-danger">
+                      {formik.errors.name}
+                    </small>
+                  )}
                 </div>
 
-                <button type="submit" className="btn btn-primary w-100">
+                <div className="mb-3">
+                  <label className="form-label">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder="Enter Email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.email && formik.errors.email && (
+                    <small className="text-danger">
+                      {formik.errors.email}
+                    </small>
+                  )}
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    className="form-control"
+                    placeholder="Enter Password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.password && formik.errors.password && (
+                    <small className="text-danger">
+                      {formik.errors.password}
+                    </small>
+                  )}
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Address</label>
+                  <input
+                    type="text"
+                    name="address"
+                    className="form-control"
+                    placeholder="Enter Address"
+                    value={formik.values.address}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.address && formik.errors.address && (
+                    <small className="text-danger">
+                      {formik.errors.address}
+                    </small>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                >
                   Register
                 </button>
               </form>
 
-              <p className="text-center mt-4">
+              <p className="text-center mt-3">
                 Already have an account?{" "}
-                <Link to="/login" className="text-decoration-none fw-bold">
-                  Login
-                </Link>
+                <Link to="/login">Login</Link>
               </p>
             </div>
           </div>
