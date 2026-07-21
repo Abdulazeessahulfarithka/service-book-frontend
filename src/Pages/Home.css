@@ -1,0 +1,61 @@
+.hero-section {
+    width: 100%;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(
+        135deg,
+        #f8fafc,
+        #dbeafe
+    );
+}
+
+
+.hero-section h1 {
+    font-size: 55px;
+    font-weight: 700;
+}
+
+
+.service-section {
+    width: 100%;
+    padding: 70px 60px;
+}
+
+
+.service-section .card {
+    transition: all 0.3s ease;
+}
+
+
+.service-section .card:hover {
+    transform: translateY(-10px);
+}
+
+
+.card-img-top {
+    height: 230px;
+    object-fit: cover;
+}
+
+
+.bg-primary {
+    width: 100%;
+    padding: 70px 40px;
+}
+
+
+/* Mobile Responsive */
+
+@media(max-width:768px){
+
+    .hero-section h1{
+        font-size:35px;
+    }
+
+
+    .service-section{
+        padding:40px 20px;
+    }
+
+}
