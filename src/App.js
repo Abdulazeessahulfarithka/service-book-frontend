@@ -9,6 +9,7 @@ import Services from "./Pages/Services";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Booking from "./Pages/Booking";
+import Profile from "./Pages/Profile";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path ="/profile" element={<Profile/>}/>
       </Routes>
     </BrowserRouter>
   );
