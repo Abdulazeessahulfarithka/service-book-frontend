@@ -8,22 +8,22 @@ import Register from "./Pages/Register";
 import Services from "./Pages/Services";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
+import Booking from "./Pages/Booking";
 
 function App() {
   return (
     <BrowserRouter>
-
       <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/booking/:id" element={<Booking />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-
     </BrowserRouter>
   );
 }
