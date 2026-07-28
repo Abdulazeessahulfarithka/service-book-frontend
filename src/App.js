@@ -10,12 +10,13 @@ import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import Booking from "./Pages/Booking";
 import Profile from "./Pages/Profile";
+import ChatBot from "./Components/ChatBot/ChatBot";
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
-
+       <ChatBot/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
