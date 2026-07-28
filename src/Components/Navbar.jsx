@@ -3,84 +3,74 @@ import { FaTools, FaUserCircle } from "react-icons/fa";
 
 function Navbar() {
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top"
-      style={{ padding: "15px 0" }}
-    >
-      <div className="container">
+    <nav className="sticky top-0 z-50 bg-white shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
-        <Link className="navbar-brand fw-bold text-primary fs-3" to="/">
-          <FaTools className="me-2" />
+        <Link
+          to="/"
+          className="flex items-center text-2xl font-bold text-blue-600"
+        >
+          <FaTools className="mr-2" />
           DoorStepFix
         </Link>
 
-        {/* Mobile Toggle */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbar"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
         {/* Menu */}
-        <div className="collapse navbar-collapse" id="navbar">
+        <div className="hidden md:flex space-x-8">
 
-          <ul className="navbar-nav mx-auto">
+          <Link
+            to="/"
+            className="font-semibold hover:text-blue-600 transition"
+          >
+            Home
+          </Link>
 
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/">
-                Home
-              </Link>
-            </li>
+          <Link
+            to="/services"
+            className="font-semibold hover:text-blue-600 transition"
+          >
+            Services
+          </Link>
 
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/services">
-                Services
-              </Link>
-            </li>
+          <Link
+            to="/about"
+            className="font-semibold hover:text-blue-600 transition"
+          >
+            About
+          </Link>
 
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/about">
-                About
-              </Link>
-            </li>
+          <Link
+            to="/contact"
+            className="font-semibold hover:text-blue-600 transition"
+          >
+            Contact
+          </Link>
 
-            <li className="nav-item">
-              <Link className="nav-link fw-semibold" to="/contact">
-                Contact
-              </Link>
-            </li>
+        </div>
 
-          </ul>
+        {/* Right Side */}
+        <div className="flex items-center space-x-3">
 
-          {/* Right Buttons */}
-          <div className="d-flex align-items-center">
+          <Link
+            to="/login"
+            className="px-4 py-2 border border-blue-600 rounded-lg text-blue-600 hover:bg-blue-600 hover:text-white transition"
+          >
+            Login
+          </Link>
 
-            <Link
-              to="/login"
-              className="btn btn-outline-primary me-2"
-            >
-              Login
-            </Link>
+          <Link
+            to="/register"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            Register
+          </Link>
 
-            <Link
-              to="/register"
-              className="btn btn-primary me-2"
-            >
-              Register
-            </Link>
-
-            <Link
-              to="/profile"
-              className="text-dark fs-3"
-            >
-              <FaUserCircle />
-            </Link>
-
-          </div>
+          <Link
+            to="/profile"
+            className="text-3xl text-gray-700 hover:text-blue-600"
+          >
+            <FaUserCircle />
+          </Link>
 
         </div>
 
