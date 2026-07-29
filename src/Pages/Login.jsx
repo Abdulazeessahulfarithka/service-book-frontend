@@ -1,13 +1,55 @@
+import React, { useEffect, useCallback } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import API from "../Services/api";
-import { useAuth } from "../Context/AuthContext"; // Change path if needed
+import { useAuth } from "../Context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
+
+  // Auto Logout after 10 minutes of inactivity
+  const logout = useCallback(() => {
+    setAuth({
+      user: null,
+      token: "",
+    });
+
+    localStorage.removeItem("auth");
+
+    toast.info("Session expired. Please login again.");
+
+    navigate("/login");
+  }, [navigate, setAuth]);
+
+  useEffect(() => {
+    let timer;
+
+    const resetTimer = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        logout();
+      }, 3 * 60 * 1000); // 10 Minutes
+    };
+
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+    window.addEventListener("click", resetTimer);
+    window.addEventListener("scroll", resetTimer);
+
+    resetTimer();
+
+    return () => {
+      clearTimeout(timer);
+
+      window.removeEventListener("mousemove", resetTimer);
+      window.removeEventListener("keydown", resetTimer);
+      window.removeEventListener("click", resetTimer);
+      window.removeEventListener("scroll", resetTimer);
+    };
+  }, [logout]);
 
   const formik = useFormik({
     initialValues: {
@@ -32,17 +74,22 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const login = await axios.post(`${API}api/user/login`, values);
-        console.log(login)
-        if (login.data.success) {
-          toast.success("Login successful!");
 
-          setAuth({ 
-            ...auth,
+        if (login.data.success) {
+          toast.success("Login Successful");
+
+          setAuth({
             user: login.data.user,
             token: login.data.token,
           });
 
-          localStorage.setItem("auth", JSON.stringify(login.data));
+          localStorage.setItem(
+            "auth",
+            JSON.stringify({
+              user: login.data.user,
+              token: login.data.token,
+            })
+          );
 
           navigate("/");
         } else {
@@ -56,6 +103,8 @@ function Login() {
         } else {
           toast.error("Something went wrong");
         }
+
+        console.log(error);
       }
     },
   });
@@ -63,7 +112,10 @@ function Login() {
   return (
     <div
       className="container-fluid"
-      style={{ background: "#f5f7fa", minHeight: "100vh" }}
+      style={{
+        minHeight: "100vh",
+        background: "#f5f7fa",
+      }}
     >
       <div className="row justify-content-center align-items-center vh-100">
         <div className="col-md-5 col-lg-4">
