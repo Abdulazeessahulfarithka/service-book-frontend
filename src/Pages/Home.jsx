@@ -113,7 +113,7 @@ export default function Home() {
 
 
               {
-                services.slice(0,4).map((service)=>(
+                services.map((service)=>(
 
 
                   <div
