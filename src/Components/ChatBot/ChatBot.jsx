@@ -1,8 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./ChatBot.css";
-
-const API = "http://localhost:6000/api/ai/chat";
+import API from "../../Services/api";
 
 function ChatBot() {
   const [open, setOpen] = useState(false);
