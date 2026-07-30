@@ -26,9 +26,9 @@ function ChatBot() {
     setLoading(true);
 
     try {
-      const res = await axios.post(API, {
-        message,
-      });
+      const res = await axios.post(`${API}/api/ai/chat`, {
+  message,
+});
 
       setMessages((prev) => [
         ...prev,
@@ -45,6 +45,7 @@ function ChatBot() {
           text: "Something went wrong.",
         },
       ]);
+      console.error("Gemini API error:", err.message);
     }
 
     setLoading(false);
