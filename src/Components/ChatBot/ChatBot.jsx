@@ -26,7 +26,7 @@ function ChatBot() {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${API}/api/ai/chat`, {
+      const res = await axios.post(`${API}api/ai/chat`, {
   message,
 });
 
